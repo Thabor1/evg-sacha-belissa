@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EVG Sacha — Golf Italie du Nord</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --green:#1a4d2e;--green-l:#2d6a45;--green-xl:#e8f4ee;
+  --gold:#c9a84c;--gold-l:#e8c97a;--gold-xl:#fdf8ec;
+  --navy:#1a3a6e;--navy-xl:#e8eef8;
+  --bg:#f7f5f0;--white:#fff;
+  --text:#1a1a1a;--muted:#6b6b6b;--border:#e0dcd4;
+  --radius:12px;--radius-sm:8px;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--green);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:56px;
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:17px;color:var(--white);letter-spacing:.03em;}
+.nav-links{display:flex;gap:1.5rem;}
+.nav-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:13px;font-weight:400;transition:color .2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-badge{background:var(--gold);color:#1a1a00;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;letter-spacing:.05em;}
+
+/* HERO */
+.hero{
+  background:var(--green);
+  color:var(--white);
+  padding:4rem 2rem 3rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 60% 40%,rgba(201,168,76,.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-l);margin-bottom:1rem;font-weight:400;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,54px);font-weight:700;line-height:1.15;margin-bottom:1rem;color:var(--white);}
+.hero h1 em{color:var(--gold-l);font-style:normal;}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.7);max-width:520px;margin:0 auto 2rem;font-weight:300;line-height:1.6;}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:2.5rem;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:12px;padding:5px 14px;border-radius:20px;font-weight:400;}
+.hero-stats{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:var(--gold-l);}
+.stat-l{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-top:2px;}
+
+/* SECTIONS */
+section{padding:3rem 2rem;}
+.container{max-width:900px;margin:0 auto;}
+.section-eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.5rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);margin-bottom:.5rem;}
+.section-sub{font-size:14px;color:var(--muted);margin-bottom:2rem;max-width:560px;line-height:1.6;}
+
+/* GOOGLE MAPS EMBED */
+.map-wrap{
+  border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:0 2px 16px rgba(0,0,0,.06);
+  margin-bottom:1rem;
+}
+.map-wrap iframe{display:block;width:100%;height:460px;border:none;}
+.map-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:2rem;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;border-radius:var(--radius-sm);
+  font-size:13px;font-weight:500;text-decoration:none;
+  transition:opacity .2s,transform .15s;cursor:pointer;border:none;
+}
+.btn:hover{opacity:.88;transform:translateY(-1px);}
+.btn-primary{background:var(--green);color:var(--white);}
+.btn-gold{background:var(--gold);color:#1a1a00;}
+.btn-outline{background:var(--white);color:var(--green);border:1px solid var(--border);}
+.btn svg{width:16px;height:16px;flex-shrink:0;}
+
+/* TIMELINE */
+.timeline-wrap{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
+  margin-bottom:2rem;
+}
+.tl-day{background:var(--white);}
+.tl-day-header{
+  background:var(--green);color:var(--white);
+  padding:10px 16px;font-size:12px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.07em;
+}
+.tl-items{padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
+.tl-item{display:flex;gap:10px;align-items:flex-start;}
+.tl-time{font-size:11px;color:var(--muted);min-width:40px;padding-top:2px;}
+.tl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.tl-t{font-size:13px;font-weight:500;color:var(--text);line-height:1.3;}
+.tl-n{font-size:11px;color:var(--muted);margin-top:1px;}
+
+/* STOPS */
+.stops-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:2rem;}
+.stop-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  transition:box-shadow .2s,transform .15s;
+}
+.stop-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-3px);}
+.stop-img{width:100%;height:180px;object-fit:cover;display:block;background:#c8d8c0;}
+.stop-img-ph{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:40px;background:linear-gradient(135deg,#c8d8c0,#a8c0a0);}
+.stop-body{padding:14px 16px 16px;}
+.stop-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:24px;height:24px;border-radius:50%;
+  font-size:11px;font-weight:500;color:var(--white);
+  margin-bottom:8px;
+}
+.stop-body h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;margin-bottom:4px;line-height:1.3;}
+.stop-type{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
+.stop-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+.stop-facts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.fact{background:var(--bg);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--text);}
+.fact strong{font-weight:500;}
+.stop-links{display:flex;gap:8px;flex-wrap:wrap;}
+.stop-link{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;color:var(--green);text-decoration:none;
+  border:1px solid var(--border);border-radius:6px;padding:5px 10px;
+  transition:background .15s;font-weight:400;
+}
+.stop-link:hover{background:var(--green-xl);}
+.tag{display:inline-block;font-size:10px;font-weight:500;padding:3px 9px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;}
+.tag-golf{background:var(--green-xl);color:var(--green);}
+.tag-hotel{background:var(--gold-xl);color:#7a5c00;}
+.tag-airport{background:var(--navy-xl);color:var(--navy);}
+
+/* BUDGET */
+.budget-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:2rem;}
+.budget-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;}
+.budget-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.budget-val{font-size:20px;font-weight:500;color:var(--text);font-family:'Playfair Display',serif;}
+.budget-note{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* PRACTICAL */
+.practical-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:2rem;}
+.prac-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;}
+.prac-icon{font-size:20px;margin-bottom:8px;}
+.prac-title{font-size:13px;font-weight:500;margin-bottom:4px;}
+.prac-body{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* FOOTER */
+footer{background:var(--green);color:rgba(255,255,255,.7);text-align:center;padding:2rem;font-size:13px;}
+footer strong{color:var(--white);}
+
+/* ROUTE STRIP */
+.route-strip{
+  display:flex;flex-wrap:wrap;gap:0;
+  background:var(--green);border-radius:var(--radius-sm);
+  overflow:hidden;margin-bottom:1rem;
+}
+.route-leg{
+  flex:1;min-width:160px;
+  padding:10px 16px;
+  color:var(--white);font-size:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.route-leg+.route-leg{border-left:1px solid rgba(255,255,255,.15);}
+.rdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.rdist{color:var(--gold-l);font-weight:500;}
+
+@media(max-width:600px){
+  .hero{padding:2.5rem 1.25rem 2rem;}
+  section{padding:2rem 1.25rem;}
+  .nav-links{display:none;}
+  .route-leg{min-width:100%;border-left:none!important;border-top:1px solid rgba(255,255,255,.1);}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">EVG Sacha · Golf Italie</span>
+  <div class="nav-links">
+    <a href="#carte">Carte</a>
+    <a href="#programme">Programme</a>
+    <a href="#etapes">Étapes</a>
+    <a href="#budget">Budget</a>
+    <a href="#pratique">Pratique</a>
+  </div>
+  <span class="nav-badge">Juin 2025</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Enterrement de vie de garçon</div>
+  <h1>Golf <em>Italie du Nord</em><br/>Le circuit parfait</h1>
+  <p class="hero-sub">Piémont · Lac Majeur · 3 jours, 3 golfs d'exception · Un seul aéroport, zéro stress logistique</p>
+  <div class="hero-chips">
+    <span class="chip">✈ Vol Paris → Malpensa ~1h30</span>
+    <span class="chip">⛳ 3 golfs Top 10 Italie</span>
+    <span class="chip">🏨 Nuit au Grand Hôtel 5★ lac Majeur</span>
+    <span class="chip">🚗 40 km max entre les golfs</span>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">Parcours</div></div>
+    <div class="stat"><div class="stat-n">54</div><div class="stat-l">Trous joués</div></div>
+    <div class="stat"><div class="stat-n">40 km</div><div class="stat-l">Distance max</div></div>
+    <div class="stat"><div class="stat-n">1</div><div class="stat-l">Aéroport</div></div>
+  </div>
+</section>
+
+<section id="carte">
+  <div class="container">
+    <div class="section-eyebrow">Carte du circuit</div>
+    <div class="section-title">Le trajet en un coup d'œil</div>
+    <p class="section-sub">Malpensa → Bogogno → Castelconturbia → Stresa → Golf des Îles Borromées → Malpensa</p>
+
+    <div class="map-wrap">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m52!1m12!1m3!1d354847.2!2d8.45!3d45.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m37!3e0!4m5!1s0x47868f29c00b7f2d%3A0x55a82f955e8e7ccd!2sMilan+Malpensa+Airport!3m2!1d45.6306!2d8.7231!4m5!1s0x47869e5b2b364d6b%3A0xdfbb48748eb474da!2sBogogno+Golf+Resort%2C+Via+San+Isidoro%2C+1%2C+28010+Bogogno+NO%2C+Italie!3m2!1d45.651!2d8.532!4m5!1s0x4786a5e6ec781be5%3A0x41c34ce8b5c04d2b!2sGolf+Club+Castelconturbia%2C+Via+Castelconturbia%2C+10%2C+28010+Agrate+Conturbia+NO!3m2!1d45.651!2d8.572!4m5!1s0x478699d806893d69%3A0xb8f4d3d1e8f0ead8!2sGrand+Hotel+Des+Iles+Borromees%2C+Corso+Umberto+I%2C+67%2C+28838+Stresa+VB!3m2!1d45.8873!2d8.5343!4m5!1s0x478699c869be6fa1%3A0xb8f4ad48614474cb!2sGolf+Des+Iles+Borromees%2C+Via+Motta+Rossa%2C+1%2C+28833+Brovello-Carpugnino+VB!3m2!1d45.853!2d8.545!4m5!1s0x47868f29c00b7f2d%3A0x55a82f955e8e7ccd!2sMilan+Malpensa+Airport!3m2!1d45.6306!2d8.7231!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Circuit EVG Golf Italie du Nord">
+      </iframe>
+    </div>
+
+    <div class="route-strip">
+      <div class="route-leg"><div class="rdot" style="background:#1a3a6e;"></div>Malpensa → Bogogno&nbsp;<span class="rdist">30 min</span></div>
+      <div class="route-leg"><div class="rdot" style="background:#1a4d2e;"></div>Bogogno → Castelconturbia&nbsp;<span class="rdist">3 km · 5 min</span></div>
+      <div class="route-leg"><div class="rdot" style="background:#888;"></div>Castelconturbia → Stresa&nbsp;<span class="rdist">35 min</span></div>
+      <div class="route-leg"><div class="rdot" style="background:#c9a84c;"></div>Stresa → Golf Borromées&nbsp;<span class="rdist">5 km</span></div>
+      <div class="route-leg"><div class="rdot" style="background:#1a3a6e;"></div>Stresa → Malpensa&nbsp;<span class="rdist">45 min</span></div>
+    </div>
+
+    <div class="map-actions">
+      <a class="btn btn-primary" href="https://www.google.com/maps/dir/Milan+Malpensa+Airport/Bogogno+Golf+Resort,+Via+San+Isidoro,+1,+28010+Bogogno+NO/Golf+Club+Castelconturbia,+Via+Castelconturbia,+10,+28010+Agrate+Conturbia+NO/Grand+Hotel+Des+Iles+Borromees,+Corso+Umberto+I,+67,+28838+Stresa+VB/Golf+Des+Iles+Borromees,+Via+Motta+Rossa,+1,+28833+Brovello-Carpugnino+VB/Milan+Malpensa+Airport" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3l9 9-9 9"/></svg>
+        Ouvrir dans Google Maps
+      </a>
+      <a class="btn btn-gold" href="https://www.google.com/maps/dir/Milan+Malpensa+Airport/Bogogno+Golf+Resort,+Via+San+Isidoro,+1,+28010+Bogogno+NO/Golf+Club+Castelconturbia,+Via+Castelconturbia,+10,+28010+Agrate+Conturbia+NO/Grand+Hotel+Des+Iles+Borromees,+Corso+Umberto+I,+67,+28838+Stresa+VB/Golf+Des+Iles+Borromees,+Via+Motta+Rossa,+1,+28833+Brovello-Carpugnino+VB/Milan+Malpensa+Airport" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Itinéraire GPS complet
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="programme" style="background:var(--white);padding:3rem 2rem;">
+  <div class="container">
+    <div class="section-eyebrow">Déroulé</div>
+    <div class="section-title">Programme jour par jour</div>
+    <p class="section-sub">Vendredi → Dimanche · Format idéal pour un VG sans sacrifier le confort</p>
+
+    <div class="timeline-wrap">
+      <div class="tl-day">
+        <div class="tl-day-header">Vendredi — Jour 1</div>
+        <div class="tl-items">
+          <div class="tl-item"><span class="tl-time">Matin</span><div class="tl-dot" style="background:#1a3a6e;"></div><div><div class="tl-t">Vol Paris → Malpensa</div><div class="tl-n">~1h30 · Location voitures à l'arrivée</div></div></div>
+          <div class="tl-item"><span class="tl-time">14h00</span><div class="tl-dot" style="background:#1a4d2e;"></div><div><div class="tl-t">Arrivée Bogogno Golf Resort</div><div class="tl-n">Check-in · 9 trous warm-up ou practice</div></div></div>
+          <div class="tl-item"><span class="tl-time">20h00</span><div class="tl-dot" style="background:#c9a84c;"></div><div><div class="tl-t">Dîner au resort</div><div class="tl-n">Terrasse vue sur le Mont Rose</div></div></div>
+        </div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-day-header">Samedi — Jour 2</div>
+        <div class="tl-items">
+          <div class="tl-item"><span class="tl-time">09h00</span><div class="tl-dot" style="background:#1a4d2e;"></div><div><div class="tl-t">18 trous — Castelconturbia</div><div class="tl-n">RTJ Sr. · Top 10 Italie · 3 km de Bogogno</div></div></div>
+          <div class="tl-item"><span class="tl-time">14h30</span><div class="tl-dot" style="background:#888;"></div><div><div class="tl-t">Transfer → Stresa</div><div class="tl-n">35 min en voiture</div></div></div>
+          <div class="tl-item"><span class="tl-time">16h00</span><div class="tl-dot" style="background:#c9a84c;"></div><div><div class="tl-t">Grand Hôtel des Îles Borromées</div><div class="tl-n">Check-in · Spa · Apéro sur le lac</div></div></div>
+          <div class="tl-item"><span class="tl-time">20h30</span><div class="tl-dot" style="background:#c9a84c;"></div><div><div class="tl-t">Dîner de gala — La nuit du VG</div><div class="tl-n">Restaurant du Grand Hôtel · vue lac Majeur</div></div></div>
+        </div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-day-header">Dimanche — Jour 3</div>
+        <div class="tl-items">
+          <div class="tl-item"><span class="tl-time">09h00</span><div class="tl-dot" style="background:#1a4d2e;"></div><div><div class="tl-t">18 trous — Golf des Îles Borromées</div><div class="tl-n">Panorama sur 4 lacs alpins · 500m d'altitude</div></div></div>
+          <div class="tl-item"><span class="tl-time">14h00</span><div class="tl-dot" style="background:#9bc4e2;"></div><div><div class="tl-t">Bateau vers les Îles Borromées</div><div class="tl-n">Isola Bella · visite optionnelle</div></div></div>
+          <div class="tl-item"><span class="tl-time">17h00</span><div class="tl-dot" style="background:#1a3a6e;"></div><div><div class="tl-t">Retour Malpensa · Vol retour</div><div class="tl-n">45 min de route · rendu voitures</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="etapes">
+  <div class="container">
+    <div class="section-eyebrow">Les étapes</div>
+    <div class="section-title">5 lieux incontournables</div>
+    <p class="section-sub">Du parcours Championship au palace 5 étoiles — chaque étape est une expérience</p>
+
+    <div class="stops-grid">
+
+      <div class="stop-card">
+        <img class="stop-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Aeroporto_di_Milano-Malpensa_-_Terminal_1.jpg/1280px-Aeroporto_di_Milano-Malpensa_-_Terminal_1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Malpensa"/>
+        <div class="stop-img-ph" style="display:none;background:linear-gradient(135deg,#c8d0e8,#a0aad0);">✈️</div>
+        <div class="stop-body">
+          <div class="stop-num" style="background:#1a3a6e;">✈</div>
+          <h3>Milan Malpensa</h3>
+          <div class="stop-type">Aéroport · Point d'entrée &amp; sortie</div>
+          <div class="stop-desc">Hub naturel du circuit. Vols directs Paris en ~1h30. Location de voitures sur place — 30 min de route suffisent pour rejoindre Bogogno.</div>
+          <div class="stop-facts">
+            <span class="fact"><strong>Paris →</strong> ~1h30</span>
+            <span class="fact"><strong>→ Bogogno</strong> 30 min</span>
+            <span class="fact"><strong>→ Stresa</strong> 45 min</span>
+          </div>
+          <span class="tag tag-airport">MXP</span>
+          <div class="stop-links" style="margin-top:10px;">
+            <a class="stop-link" href="https://www.milanomalpensa-airport.com/fr/" target="_blank" rel="noopener">Site officiel →</a>
+            <a class="stop-link" href="https://www.google.com/maps/place/Milan+Malpensa+Airport" target="_blank" rel="noopener">Google Maps →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop-card">
+        <img class="stop-img" src="https://lh3.googleusercontent.com/place-photos/AJRVUZNBgxK9GCIwU8OIZPdTjJgKpSnoCqSafUwv2amv-302ZOoqAiJwRoFO8C-rSslxaThckBWfrybpRsgiR1_pzqZMGBX0EERwYYbinB_sO2bx8GZ4FhMHa-Tj-f_yiqxmtlIn7PevqZAfAbZ03qI=s800" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Bogogno Golf Resort"/>
+        <div class="stop-img-ph" style="display:none;">⛳</div>
+        <div class="stop-body">
+          <div class="stop-num" style="background:#1a4d2e;">1</div>
+          <h3>Bogogno Golf Resort</h3>
+          <div class="stop-type">Golf Championship + Hôtel 4★ · Vendredi soir</div>
+          <div class="stop-desc">36 trous dessinés par Robert Von Hagge. Seul siège officiel de Qualifying School European Tour en Italie. Hôtel 4★ avec restaurant, piscine et vue sur le Mont Rose.</div>
+          <div class="stop-facts">
+            <span class="fact"><strong>Parcours</strong> 2 × 18 trous</span>
+            <span class="fact"><strong>Architecte</strong> R. Von Hagge</span>
+            <span class="fact"><strong>Green fee</strong> ~100€/18T</span>
+          </div>
+          <span class="tag tag-golf">Golf Championship</span>
+          <div class="stop-links" style="margin-top:10px;">
+            <a class="stop-link" href="https://www.bogognogolfresort.com" target="_blank" rel="noopener">Site officiel →</a>
+            <a class="stop-link" href="https://www.google.com/maps/place/Bogogno+Golf+Resort" target="_blank" rel="noopener">Google Maps →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop-card">
+        <img class="stop-img" src="https://lh3.googleusercontent.com/places/ANXAkqGIdHPnrkSjtjx6-lXWiRCg6u3CM_GJKegrqBzMBCWPqT1UjncN2gIskfSy4FdiNo9NQGE3JeZRUBFczA1n24cB_Lcd8g8TjwQ=s800" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Castelconturbia"/>
+        <div class="stop-img-ph" style="display:none;">⛳</div>
+        <div class="stop-body">
+          <div class="stop-num" style="background:#1a4d2e;">2</div>
+          <h3>Golf Club Castelconturbia</h3>
+          <div class="stop-type">Golf · Samedi matin · 3 km de Bogogno</div>
+          <div class="stop-desc">Chef-d'œuvre de Robert Trent Jones Sr. — 27 trous parkland. Grands greens en pente, bunkers monumentaux. Hôte de l'Open d'Italie 1991 &amp; 1998. Top 10 Italie.</div>
+          <div class="stop-facts">
+            <span class="fact"><strong>Parcours</strong> 27 trous</span>
+            <span class="fact"><strong>Architecte</strong> RTJ Sr.</span>
+            <span class="fact"><strong>Green fee</strong> ~68€/18T</span>
+          </div>
+          <span class="tag tag-golf">Top 10 Italie</span>
+          <div class="stop-links" style="margin-top:10px;">
+            <a class="stop-link" href="https://www.golfclubcastelconturbia.it" target="_blank" rel="noopener">Site officiel →</a>
+            <a class="stop-link" href="https://www.google.com/maps/place/Castelconturbia+Golf" target="_blank" rel="noopener">Google Maps →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop-card">
+        <img class="stop-img" src="https://cf.bstatic.com/xdata/images/hotel/max800/283069980.jpg?k=6f0e8dc8d50bce92ed8ef1e30edb4e2a3dc5ecbb0843a3ccf4fc15ed9e4a8bef&o=" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Grand Hotel des Iles Borromées"/>
+        <div class="stop-img-ph" style="display:none;background:linear-gradient(135deg,#e8e0c0,#d0c080);">🏨</div>
+        <div class="stop-body">
+          <div class="stop-num" style="background:#c9a84c;">3</div>
+          <h3>Grand Hôtel des Îles Borromées</h3>
+          <div class="stop-type">Hôtel 5★ · Stresa · La nuit du VG</div>
+          <div class="stop-desc">Palais Art Nouveau mythique face aux îles Borromées. Suite Hemingway. Spa, piscines, restaurant gastronomique avec terrasse lac. L'endroit parfait pour la grande nuit.</div>
+          <div class="stop-facts">
+            <span class="fact"><strong>Catégorie</strong> 5 étoiles</span>
+            <span class="fact"><strong>Vue</strong> Lac Majeur</span>
+            <span class="fact"><strong>Spa</strong> Complet</span>
+          </div>
+          <span class="tag tag-hotel">5 étoiles · Lac Majeur</span>
+          <div class="stop-links" style="margin-top:10px;">
+            <a class="stop-link" href="https://borromees.com" target="_blank" rel="noopener">Site officiel →</a>
+            <a class="stop-link" href="https://www.google.com/maps/place/Grand+Hotel+Des+Iles+Borromees" target="_blank" rel="noopener">Google Maps →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop-card">
+        <img class="stop-img" src="https://lh3.googleusercontent.com/place-photos/AJRVUZPBbJZeQ6u-bfq9DI1eGzN-u4CeWT_OZPj8LAxQe1AqWTIxmn2gBQlorP8RIu_9KVkU9MrIrBFT2Ysl8XwthYhi_4JqSbu443SYgQ7Mw0HAcT4Ti5StswN2gAJp2-vGMbt19KvjZtujIDKK_e8=s800" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt="Golf des Iles Borromees"/>
+        <div class="stop-img-ph" style="display:none;">⛳</div>
+        <div class="stop-body">
+          <div class="stop-num" style="background:#1a4d2e;">4</div>
+          <h3>Golf des Îles Borromées</h3>
+          <div class="stop-type">Golf · Dimanche matin · 5 km de Stresa</div>
+          <div class="stop-desc">Perché à 500m d'altitude, panorama exceptionnel sur le lac Majeur, les Alpes du Simplon et 4 lacs préalpins. Cadre spectaculaire pour clôturer le circuit. Ouvert tous les jours sauf le lundi.</div>
+          <div class="stop-facts">
+            <span class="fact"><strong>18 trous</strong> Par 72</span>
+            <span class="fact"><strong>Altitude</strong> 500m</span>
+            <span class="fact"><strong>Vue</strong> 4 lacs alpins</span>
+          </div>
+          <span class="tag tag-golf">Vue panoramique</span>
+          <div class="stop-links" style="margin-top:10px;">
+            <a class="stop-link" href="https://www.golfdesilesborromees.it" target="_blank" rel="noopener">Site officiel →</a>
+            <a class="stop-link" href="https://www.google.com/maps/place/Golf+Des+Iles+Borromees" target="_blank" rel="noopener">Google Maps →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="budget" style="background:var(--white);">
+  <div class="container">
+    <div class="section-eyebrow">Budget</div>
+    <div class="section-title">Estimation par personne</div>
+    <p class="section-sub">Hors vols · Basé sur chambre double · Début juin (haute saison)</p>
+
+    <div class="budget-grid">
+      <div class="budget-card">
+        <div class="budget-label">Green fees</div>
+        <div class="budget-val">~170–220€</div>
+        <div class="budget-note">2 parcours 18 trous</div>
+      </div>
+      <div class="budget-card">
+        <div class="budget-label">Hôtels (2 nuits)</div>
+        <div class="budget-val">~400–700€</div>
+        <div class="budget-note">Bogogno 4★ + Borromées 5★</div>
+      </div>
+      <div class="budget-card">
+        <div class="budget-label">Location voiture</div>
+        <div class="budget-val">~40–60€</div>
+        <div class="budget-note">Quote-part par personne</div>
+      </div>
+      <div class="budget-card">
+        <div class="budget-label">Repas &amp; activités</div>
+        <div class="budget-val">~150–200€</div>
+        <div class="budget-note">Dîners + déjeuners + bateau</div>
+      </div>
+      <div class="budget-card" style="border:2px solid var(--gold);">
+        <div class="budget-label">Total estimé</div>
+        <div class="budget-val" style="color:var(--green);">760–1 180€</div>
+        <div class="budget-note">Hors vols (~80–160€ aller-retour)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pratique">
+  <div class="container">
+    <div class="section-eyebrow">Informations pratiques</div>
+    <div class="section-title">Tout ce qu'il faut savoir</div>
+
+    <div class="practical-grid">
+      <div class="prac-card">
+        <div class="prac-icon">✈️</div>
+        <div class="prac-title">Vols recommandés</div>
+        <div class="prac-body">Paris CDG/ORY → Milan Malpensa (MXP). Compagnies : Air France, EasyJet, Transavia. Réserver 6–8 semaines à l'avance pour les tarifs les plus avantageux.</div>
+      </div>
+      <div class="prac-card">
+        <div class="prac-icon">🚗</div>
+        <div class="prac-title">Location de voitures</div>
+        <div class="prac-body">Hertz, Avis, Enterprise directement à Malpensa. Prévoir 1 SUV ou 2 berlines selon le groupe. Réserver à l'avance en ligne. GPS indispensable.</div>
+      </div>
+      <div class="prac-card">
+        <div class="prac-icon">⛳</div>
+        <div class="prac-title">Tee times &amp; green fees</div>
+        <div class="prac-body">Réserver les tee times 4–6 semaines à l'avance. Handicap requis (carte ou appli). Bogogno : +39 0322 864137 · Castelconturbia : +39 0322 832093 · Borromées : +39 0323 929285.</div>
+      </div>
+      <div class="prac-card">
+        <div class="prac-icon">🏨</div>
+        <div class="prac-title">Réservations hôtels</div>
+        <div class="prac-body">Bogogno Golf Resort : bogognogolfresort.com · Grand Hôtel des Îles Borromées : borromees.com. Juin = haute saison. Réserver dès que les dates sont fixées.</div>
+      </div>
+      <div class="prac-card">
+        <div class="prac-icon">📅</div>
+        <div class="prac-title">Dates cibles</div>
+        <div class="prac-body">Dernier week-end de mai ou 2 premiers week-ends de juin. Météo idéale, parcours en pleine forme, journées longues. Éviter les week-ends de pentecôte (foule).</div>
+      </div>
+      <div class="prac-card">
+        <div class="prac-icon">⚠️</div>
+        <div class="prac-title">Points d'attention</div>
+        <div class="prac-body">Golf des Îles Borromées fermé le lundi. Golf de Rapallo fermé le mardi (Option 2 uniquement). Pas de problème pour un circuit vendredi–dimanche.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="font-family:'Playfair Display',serif;font-size:18px;color:var(--white);margin-bottom:.5rem;">EVG Sacha — Golf Italie du Nord</p>
+  <p>Circuit <strong>Piémont · Lac Majeur</strong> · 3 jours · Juin 2025</p>
+  <p style="margin-top:.75rem;font-size:12px;">Bogogno · Castelconturbia · Grand Hôtel des Îles Borromées · Golf des Îles Borromées</p>
+</footer>
+
+</body>
+</html>
