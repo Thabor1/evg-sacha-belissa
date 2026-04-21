@@ -218,6 +218,11 @@ section{padding:3rem 2rem;}
 .result-bar{background:var(--green);height:100%;border-radius:4px;transition:width .6s ease;}
 .voter-list{margin-top:4px;font-size:11px;color:var(--muted);font-style:italic;}
 .success-msg{background:var(--green-xl);border:1px solid var(--green);border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;color:var(--green);text-align:center;margin-top:10px;display:none;}
+.opt-insight{font-size:11px;margin-top:5px;line-height:1.5;padding:4px 8px;border-radius:4px;}
+.opt-insight-ok{background:#eaf4ee;color:#1a4d2e;}
+.opt-insight-warn{background:#fff8e6;color:#7a5c00;}
+.opt-insight-error{background:#fde8e8;color:#a00;}
+.badge-warn{background:#fff0c0;color:#7a5000;font-size:10px;font-weight:500;padding:3px 9px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;}
 
 /* PRACTICAL */
 .practical-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:2rem;}
@@ -518,21 +523,47 @@ footer .ft-title{font-family:'Playfair Display',serif;font-size:18px;color:#fff;
           <input type="text" id="vote-nom" placeholder="Nom" maxlength="30"/>
         </div>
         <div class="weekend-options">
+
+          <label class="weekend-opt" id="opt-0">
+            <input type="radio" name="weekend" value="23mai"/>
+            <div class="opt-info">
+              <h4>Week-end du 23 mai 2026</h4>
+              <p>Vendredi 22 mai &rarr; Dimanche 24 mai 2026</p>
+              <p class="opt-insight opt-insight-ok">&#128077; Option la plus sereine &mdash; aucun &eacute;v&eacute;nement concurrent ce week-end</p>
+            </div>
+            <span class="opt-badge badge-ok">Disponible</span>
+          </label>
+
           <label class="weekend-opt" id="opt-1">
             <input type="radio" name="weekend" value="29mai"/>
-            <div class="opt-info"><h4>Week-end du 29 mai 2026</h4><p>Vendredi 29 mai &rarr; Dimanche 31 mai 2026</p></div>
-            <span class="opt-badge badge-ok">Disponible</span>
+            <div class="opt-info">
+              <h4>Week-end du 29 mai 2026</h4>
+              <p>Vendredi 29 mai &rarr; Dimanche 31 mai 2026</p>
+              <p class="opt-insight opt-insight-warn">&#9888;&#65039; <strong>Attention&nbsp;:</strong> la finale de la Ligue des Champions se joue le <strong>samedi 30 mai &agrave; Budapest</strong>. Si le PSG est qualifi&eacute;, certains &mdash; Sacha y compris &mdash; pourraient pr&eacute;f&eacute;rer faire le d&eacute;placement &agrave; Budapest plut&ocirc;t que d&rsquo;&ecirc;tre sur le green.</p>
+            </div>
+            <span class="opt-badge badge-warn">&#9917; Finale LDC</span>
           </label>
+
           <label class="weekend-opt disabled-opt" id="opt-2">
             <input type="radio" name="weekend" value="2juin" disabled/>
-            <div class="opt-info"><h4>Week-end du 2 juin 2026</h4><p>Mardi 2 &rarr; Vendredi 5 juin 2026</p></div>
-            <span class="opt-badge badge-unavail">Sacha absent &mdash; mariage Naomi &amp; Brian</span>
+            <div class="opt-info">
+              <h4>Week-end du 2 juin 2026</h4>
+              <p>Mardi 2 &rarr; Vendredi 5 juin 2026</p>
+              <p class="opt-insight opt-insight-error">&#10060; Sacha absent &mdash; mariage de Naomi &amp; Brian</p>
+            </div>
+            <span class="opt-badge badge-unavail">Sacha absent</span>
           </label>
+
           <label class="weekend-opt" id="opt-3">
             <input type="radio" name="weekend" value="12juin"/>
-            <div class="opt-info"><h4>Week-end du 12 juin 2026</h4><p>Vendredi 12 juin &rarr; Dimanche 14 juin 2026</p></div>
+            <div class="opt-info">
+              <h4>Week-end du 12 juin 2026</h4>
+              <p>Vendredi 12 juin &rarr; Dimanche 14 juin 2026</p>
+              <p class="opt-insight opt-insight-warn">&#9888;&#65039; Le mariage de Sacha est la semaine suivante &mdash; risque que certains pr&eacute;f&egrave;rent garder de l&apos;&eacute;nergie pour la c&eacute;r&eacute;monie.</p>
+            </div>
             <span class="opt-badge badge-ok">Disponible</span>
           </label>
+
         </div>
         <button class="vote-btn" id="vote-btn" disabled>Entrez votre pr&eacute;nom et nom pour voter</button>
         <div class="success-msg" id="success-msg">&#10003; Vote enregistr&eacute; ! Merci.</div>
@@ -569,7 +600,7 @@ footer .ft-title{font-family:'Playfair Display',serif;font-size:18px;color:#fff;
 
 <script>
 (function() {
-  var STORAGE_KEY = "evg_sacha_votes_v4";
+  var STORAGE_KEY = "evg_sacha_votes_v5";
 
   function getVotes() {
     try {
@@ -586,6 +617,7 @@ footer .ft-title{font-family:'Playfair Display',serif;font-size:18px;color:#fff;
   }
 
   var OPTIONS = {
+    "23mai": "Week-end du 23 mai",
     "29mai": "Week-end du 29 mai",
     "12juin": "Week-end du 12 juin"
   };
